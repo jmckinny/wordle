@@ -1,8 +1,11 @@
+use rand::{self, seq::IteratorRandom};
 use std::io::Write;
 
 mod game;
 fn main() -> std::io::Result<()> {
-    let solution = "apple";
+    let wordlist = std::fs::read_to_string("wordlist.txt")?;
+    let mut rng = rand::thread_rng();
+    let solution = wordlist.lines().choose(&mut rng).unwrap();
     let mut g = game::Game::new(solution);
     let mut buffer = String::new();
     while !g.is_game_over() {
@@ -23,7 +26,7 @@ fn main() -> std::io::Result<()> {
     if g.game_won() {
         println!("You win!");
     } else {
-        println!("You lose!\nThe solution was `{}`", solution);
+        println!("You lose!\nThe solution was '{}'", solution);
     }
 
     Ok(())
