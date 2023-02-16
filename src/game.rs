@@ -56,6 +56,8 @@ impl Game {
                     } else {
                         correctness.push((letter, Correctness::Misplaced));
                     }
+                } else {
+                    correctness.push((letter, Correctness::Wrong));
                 }
                 *freq = freq.checked_sub(1).unwrap_or(0);
             } else {
